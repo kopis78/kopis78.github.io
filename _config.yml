@@ -1,6 +1,6 @@
 # Site settings
 title_left    : "kopis78's"
-title_right   : "blogs" # default: ""
+title_right   : " blog" # default: ""
 description   : "a simple cs beginer."
 keywords      : "computer"
 url           : https://kopis78.github.io/ # site url
