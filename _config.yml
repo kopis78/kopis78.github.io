@@ -5,7 +5,7 @@ description   : "a simple cs beginer."
 keywords      : "computer"
 url           : https://kopis78.github.io/ # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
-cover         : "" # image uri like logo/cover image for site seo
+cover         : "https://imgapi.xl0408.top/index.php" # image uri like logo/cover image for site seo
 
 google_analytics  : UA-XXXXX-XX
 twitter_username  : ""
