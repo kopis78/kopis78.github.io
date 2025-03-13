@@ -126,9 +126,9 @@ ___
 
 ## Media
 
-### YouTube Embedded Iframe
+### Video Embedded Iframe
 
-<div class="video-container"><iframe src="https://player.bilibili.com/player.html?bvid=BV1x5411o7Kn&as_wide=1&high_quality=1&danmaku=0"
+<div class="video-container"><iframe src="https://player.bilibili.com/player.html?isOutside=true&bvid=BV1x5411o7Kn&as_wide=1&high_quality=1&danmaku=0"
 			 allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe></div>
 
 ### Image
