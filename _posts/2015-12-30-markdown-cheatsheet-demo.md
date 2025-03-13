@@ -128,7 +128,7 @@ ___
 
 ### YouTube Embedded Iframe
 
-<div class="video-container"><iframe src="https://www.bilibili.com/video/BV1x5411o7Kn/" frameborder="0" allowfullscreen></iframe></div>
+<div class="video-container"><iframe src="https://www.bilibili.com/video/BV1x5411o7Kn" frameborder="0" allowfullscreen></iframe></div>
 
 ### Image
 
