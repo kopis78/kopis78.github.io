@@ -18,4 +18,4 @@ keywords: "other"
 ```
 
 ## Next Plan
-Add Friendship Link
+- [X] Add Friendship Link
