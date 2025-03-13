@@ -17,3 +17,5 @@ keywords: "other"
 #  "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
 ```
 
+## Next Plan
+Add Friendship Link
