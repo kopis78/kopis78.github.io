@@ -128,11 +128,11 @@ ___
 
 ### YouTube Embedded Iframe
 
-<div class="video-container"><iframe src="https://www.youtube.com/embed/n1a7o44WxNo" frameborder="0" allowfullscreen></iframe></div>
+<div class="video-container"><iframe src="https://www.bilibili.com/video/BV1x5411o7Kn/" frameborder="0" allowfullscreen></iframe></div>
 
 ### Image
 
-![Minion](http://octodex.github.com/images/minion.png)
+![Minion](https://avatars.githubusercontent.com/u/151628144?s=400&u=be73ac31f53e7f813c725a129026b17ed7074543&v=4)
 
 ---
 Footnote:
