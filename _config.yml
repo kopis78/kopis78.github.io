@@ -37,6 +37,10 @@ plugins:
 
 # navbar pages
 navbar:
+  - slug : friends
+    title: Friends
+  - slug : tags
+    title: Tags
   - slug : about
     title: About
   - slug : blog
