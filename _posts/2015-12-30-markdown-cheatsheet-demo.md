@@ -96,7 +96,6 @@ $$ E = mc^2 $$
 
 **abc**  
 $$ a^2 + b^2= c^2 $$
-$E=mc^2$
   
   ```python
   print("Hello world")
