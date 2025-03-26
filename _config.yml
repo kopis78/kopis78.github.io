@@ -19,16 +19,11 @@ markdown    : kramdown
 highlighter : rouge
 
 kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:   
-    css_class: highlight
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
-   parse_block_html: true
+  syntax_highlighter: coderay
+  syntax_highlighter_opts:
+    line_numbers: table
+    bold_every: 5
+  parse_block_html: true
 
 source      : ./
 destination : ./_site
