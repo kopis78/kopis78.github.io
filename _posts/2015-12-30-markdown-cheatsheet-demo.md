@@ -84,6 +84,7 @@ print s
 No language indicated, so no syntax highlighting.
 But let's throw in a <b>tag</b>.
 ```
+$$ E = mc^2 $$
 
 <div class="divider"></div>
 
