@@ -91,11 +91,14 @@ But let's throw in a <b>tag</b>.
 
 <details>
   <summary>Click me</summary>
+	
   <p>the answer is <code>42</code></p>
+
   
   ```python
   print("Hello world")
   ```
+
 </details>
 
 <div class="divider"></div>
