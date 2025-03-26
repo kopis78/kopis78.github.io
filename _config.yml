@@ -19,10 +19,6 @@ markdown    : kramdown
 highlighter : rouge
 
 kramdown:
-  syntax_highlighter: coderay
-  syntax_highlighter_opts:
-    line_numbers: table
-    bold_every: 5
   parse_block_html: true
 
 source      : ./
@@ -41,7 +37,6 @@ plugins:
   - jekyll-sitemap
   - bourbon
   - jekyll-paginate
-  - rouge
 
 # navbar pages
 navbar:
