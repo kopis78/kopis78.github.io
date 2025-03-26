@@ -85,7 +85,6 @@ No language indicated, so no syntax highlighting.
 But let's throw in a <b>tag</b>.
 ```
 $$ E = mc^2 $$
-$ a^2+b^2=c^2 $
 <div class="divider"></div>
 
 ## Hidden Block
@@ -95,9 +94,9 @@ $ a^2+b^2=c^2 $
 	
   <p>the answer is <code>42</code></p>
 
-**abc**
-
-$ E=mc^2 $
+**abc**  
+$$ a^2 + b^2= c^2 $$
+$E=mc^2$
   
   ```python
   print("Hello world")
