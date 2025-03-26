@@ -3,7 +3,7 @@ title_left    : "kopis78's"
 title_right   : " blog" # default: ""
 description   : "a simple cs beginer."
 keywords      : "computer"
-url           : https://kopis78.github.io/ # site url
+url           : https://kopis78.github.io # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "https://avatars.githubusercontent.com/u/151628144?v=4" # image uri like logo/cover image for site seo
 
@@ -17,6 +17,9 @@ postshare_enabled : false
 permalink   : /:year/:title/
 markdown    : kramdown
 highlighter : rouge
+
+kramdown:
+   parse_block_html: true
 
 source      : ./
 destination : ./_site
