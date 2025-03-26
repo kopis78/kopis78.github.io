@@ -75,7 +75,7 @@ alert(modularpattern.add());    // alerts: 2
 alert(modularpattern.reset());  // alerts: 0
 ```
 
-```python
+```python linenos=table
 s = "Python syntax highlighting"
 print s
 ```
@@ -97,7 +97,7 @@ $$ E = mc^2 $$
 **abc**  
 $$ a^2 + b^2= c^2 $$
   
-  ```cpp
+  ```cpp linenos=table
 int main()
 {
     return 0;
