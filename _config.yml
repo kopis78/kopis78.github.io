@@ -46,6 +46,7 @@ plugins:
   - jekyll-sitemap
   - bourbon
   - jekyll-paginate
+  - rouge
 
 # navbar pages
 navbar:
