@@ -17,10 +17,9 @@ postshare_enabled : false
 permalink   : /:year/:title/
 markdown    : kramdown
 highlighter : rouge
-mathjax: true
+
 kramdown:
   parse_block_html: true
-  math_engine: MathJax
 
 source      : ./
 destination : ./_site
@@ -38,6 +37,7 @@ plugins:
   - jekyll-sitemap
   - bourbon
   - jekyll-paginate
+  - jekyll-spaceship
 
 # navbar pages
 navbar:
