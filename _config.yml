@@ -16,14 +16,13 @@ postshare_enabled : false
 # Build settings
 permalink   : /:year/:title/
 markdown    : kramdown
-highlighter: none  # 禁用 Rouge
+highlighter: rouge  
 kramdown:
   parse_block_html: true
-  syntax_highlighter: coderay
+  syntax_highlighter: rouge
   syntax_highlighter_opts:
-    line_numbers: true
-    tab_width: 4
-    wrap: :div
+    block:
+      line_numbers: true
 
 source      : ./
 destination : ./_site
