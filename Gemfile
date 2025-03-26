@@ -5,6 +5,7 @@ group :jekyll_plugins do
     gem "bourbon"
     gem "jekyll-paginate"
     gem 'jekyll-spaceship'
+    gem 'rouge'
 end
 gem 'html-proofer'
 gem 'tzinfo'
