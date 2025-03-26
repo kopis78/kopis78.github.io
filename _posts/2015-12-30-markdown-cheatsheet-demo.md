@@ -90,7 +90,7 @@ But let's throw in a <b>tag</b>.
 ## Hidden Block
 
 <details>
-  <summary>Click me</summary>
+  <summary markdown="span">Click me</summary>
 	
   <p>the answer is <code>42</code></p>
 
