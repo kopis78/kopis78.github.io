@@ -55,7 +55,7 @@ Let's say you have text that you want to refer with a footnote, you can do that 
 
 ## Code Blocks
 
-```javascript{.line-numbers}
+```javascript
 var modularpattern = (function() {
     // your module code goes here
     var sum = 0 ;
