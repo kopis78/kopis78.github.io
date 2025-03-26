@@ -87,6 +87,19 @@ But let's throw in a <b>tag</b>.
 
 <div class="divider"></div>
 
+## Hidden Block
+
+<details>
+  <summary>Click me</summary>
+  <p>the answer is <code>42</code></p>
+  
+  ```python
+  print("Hello world")
+  ```
+</details>
+
+<div class="divider"></div>
+
 ## Table
 
 ### Table 1: With Alignment
