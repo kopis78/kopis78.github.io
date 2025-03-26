@@ -94,6 +94,9 @@ But let's throw in a <b>tag</b>.
 	
   <p>the answer is <code>42</code></p>
 
+** abc **
+
+$E=mc^2$
   
   ```python
   print("Hello world")
