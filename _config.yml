@@ -23,6 +23,7 @@ kramdown:
   syntax_highlighter_opts:
     line_numbers: true
     tab_width: 4
+    wrap: :div
 
 source      : ./
 destination : ./_site
