@@ -6,7 +6,11 @@
   padding: 0;
   box-shadow: 0px 0px 2px rgba($black-color, .1);
 
-  .highlighter-rouge &, &, .hll, pre, code {
+  .highlighter-rouge &,
+  &,
+  .hll,
+  pre,
+  code {
     background-color: lighten($light-gray-color, 15%) !important;
   }
 
@@ -20,7 +24,8 @@
     word-break: inherit;
     word-wrap: inherit;
 
-    &, code {
+    &,
+    code {
       color: $base-font-color;
     }
 
@@ -29,9 +34,72 @@
       padding: 0 !important;
 
       * {
-        white-space: nowrap; // this sets all children inside to nowrap
+        white-space: nowrap; 
       }
     }
+  }
+
+  .rouge-table {
+    width: 100%;
+    table-layout: fixed; 
+    border-collapse: collapse;
+
+    td {
+      padding: 0;
+      vertical-align: top;
+    }
+  }
+
+  .rouge-gutter {
+    width: 3.5em; 
+    min-width: 3.5em; 
+    user-select: none;
+
+    pre {
+      color: #666;
+      text-align: right;
+    }
+
+    td {
+      padding: 0;
+      vertical-align: top;
+    }
+  }
+
+  .rouge-code {
+    width: 100%;
+
+    pre {
+      overflow-x: auto;
+      white-space: pre; 
+      margin: 0;
+      padding: $base-spacing;
+
+      code {
+        white-space: pre;
+
+        * {
+          white-space: pre;
+        }
+      }
+    }
+  }
+
+  .rouge-gutter pre.lineno {
+    white-space: pre-wrap;
+    /* 允许换行 */
+    display: block;
+    /* 确保块级显示 */
+    line-height: 23px;
+    /* 设置行高匹配代码行 */
+  }
+
+  .highlight table td {
+    padding: 5px;
+  }
+
+  .highlight table pre {
+    margin: 0;
   }
 
   .c     { color: #998; font-style: italic } // Comment
