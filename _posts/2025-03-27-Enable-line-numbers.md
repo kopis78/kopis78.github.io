@@ -74,21 +74,12 @@ published: true
     min-width: 3.5em; 
     user-select: none;
 
-    pre {
-      color: #666;
-      text-align: right;
-    }
-
-    td {
-      padding: 0;
-      vertical-align: top;
-    }
-  }
-
   .rouge-code {
     width: 100%;
 
     pre {
+      color: #666;
+      text-align: right;
       overflow-x: auto;
       white-space: pre; 
       margin: 0;
