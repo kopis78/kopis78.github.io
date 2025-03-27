@@ -32,23 +32,11 @@ keywords: "Jekyll"
 <details>
   <summary markdown="span">_layouts/default.html</summary>
 
-  ```
+  ```html
  ---
 <!-- layout: compress -->
 published: true
 ---
-<!DOCTYPE html>
-<html>
-  {% include head.html %}
-  <body>
-    <main class="wrapper">
-      {% include header.html %}
-      {{ content }}
-      {% include footer.html %}
-    </main>
-    {% include foot.html %}
-  </body>
-</html>
   ```
 
 </details>
