@@ -32,7 +32,7 @@ keywords: "Jekyll"
 <details>
   <summary markdown="span">_layouts/default.html</summary>
 
-  ```html
+  ```
  ---
 <!-- layout: compress -->
 published: true
