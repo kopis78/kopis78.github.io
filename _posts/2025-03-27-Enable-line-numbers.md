@@ -45,57 +45,64 @@ published: true
 <details>
   <summary markdown="span">assets/scss/_syntax-highlighting.scss</summary>
 
-  ```css
+  ```scss
  .rouge-table {
     width: 100%;
-    table-layout: fixed; 
+    table-layout: fixed; // 固定表格布局
     border-collapse: collapse;
 
-    td {
-      padding: 0;
-      vertical-align: top;
+
+    .rouge-gutter {
+      width: 3.5em; // 增加行号列宽度
+      min-width: 3.5em; // 防止内容压缩
+      user-select: none; // 禁用行号选择
+
+      pre {
+        color: #666; // 行号颜色
+        text-align: right; // 右对齐
+      }
+
+      td {
+        padding: 0;
+        vertical-align: top; // 顶部对齐
+      }
     }
-  }
 
-  .rouge-gutter {
-    width: 3.5em; 
-    min-width: 3.5em; 
-    user-select: none;
+    .rouge-code {
+      width: 100%; // 代码列填满剩余空间
 
-  .rouge-code {
-    width: 100%;
+      pre {
+        overflow-x: auto; // 恢复水平滚动
+        white-space: pre; // 保持原有空白处理
+        margin: 0;
+        padding: $base-spacing;
 
-    pre {
-      color: #666;
-      text-align: right;
-      overflow-x: auto;
-      white-space: pre; 
-      margin: 0;
-      padding: $base-spacing;
+        code {
+          white-space: pre; // 重置代码换行方式
 
-      code {
-        white-space: pre;
-
-        * {
-          white-space: pre;
+          * {
+            white-space: pre; // 移除强制不换行设置
+          }
         }
       }
     }
-  }
 
-  .rouge-gutter pre.lineno {
-    white-space: pre-wrap;
-    display: block;
-    line-height: 23px;
-  }
+    .rouge-gutter pre.lineno {
+      white-space: pre-wrap;
+      /* 允许换行 */
+      display: block;
+      /* 确保块级显示 */
+      line-height: 23px;
+      /* 设置行高匹配代码行 */
+    }
 
-  .highlight table td {
-    padding: 5px;
-  }
+    .highlight table td {
+      padding: 5px;
+    }
 
-  .highlight table pre {
-    margin: 0;
-  }
+    .highlight table pre {
+      margin: 0;
+    }
 
   ```
 
