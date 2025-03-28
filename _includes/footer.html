@@ -1,7 +1,15 @@
 <footer class="site-footer">
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
+  <script>
+  var pres = document.getElementsByTagName("pre");
+  for(var i = 0; i < pres.length; i++){
+      var pre = pres[i];
+      if(pre.childNodes[0].nodeName == "CODE"){
+          pre.setAttribute("class","line-numbers");
+      }
+  }
+  </script>
+    
   <div class="container">
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
     <small class="block">&copy; {{ site.time | date: '%Y' }} {{ site.author.name }} &middot; &lt;/&gt; Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/heiswayi/thinkspace">Thinkspace theme</a></small>
