@@ -18,7 +18,7 @@ highlighter: none
 </details>
 
 
-2.首先禁用`_layouts/default.html`中的`layout: compress`，这个似乎存在bug
+2.然后禁用`_layouts/default.html`中的`layout: compress`，这个似乎存在bug
 <details>
   <summary markdown="span">_layouts/default.html</summary>
 
@@ -51,7 +51,7 @@ for(var i = 0; i < pres.length; i++){
 
 4.如果此时无法显示行号，需要修改`assets/css/prism.css`，来增加行号的样式
 <details>
-  <summary markdown="span">assets/scss/_syntax-highlighting.scss</summary>
+  <summary markdown="span">assets/css/prism.css</summary>
 
   ```css
 pre[class*=language-].line-numbers.line-numbers {
