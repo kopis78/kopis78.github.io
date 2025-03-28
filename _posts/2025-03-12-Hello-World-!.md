@@ -19,5 +19,7 @@ keywords: "other"
 
 ## Next Plan
 - [X] Add Friendship Link
-- [ ] Add floating catalogue
+- [X] Add Line Numbers
+- [ ] Add Floating Catalogue
 - [ ] Add Dark Dark Themes
+- [ ] Add Comments via GitHub Login
