@@ -4,7 +4,7 @@ layout: post
 title: "启用thinkspace主题的代码块行号"
 description: "fix some bugs"
 comments: true
-keywords: "Jekyll"
+tags: "Jekyll"
 ---
 
 
