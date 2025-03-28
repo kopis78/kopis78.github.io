@@ -19,3 +19,5 @@ keywords: "other"
 
 ## Next Plan
 - [X] Add Friendship Link
+- [ ] Add floating catalogue
+- [ ] Add Dark Dark Themes
