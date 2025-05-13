@@ -1,6 +1,8 @@
 // Typography
-@import url('https://fonts.googleapis.com/css?family=Overpass+Mono:400,700');
-$base-font-family: 'Overpass Mono', monospace;
+//@import url('https://fonts.googleapis.com/css?family=Overpass+Mono:400,700');
+//$base-font-family: 'Overpass Mono', monospace;
+@import "assets/css/style"
+$base-font-family: "LXGW WenKai", monospace;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
