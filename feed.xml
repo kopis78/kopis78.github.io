@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description>a simple cs beginer.</description>
+    <link>https://kopis78.github.io/</link>
+    <atom:link href="https://kopis78.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 17 Jun 2025 04:00:03 +0000</pubDate>
+    <lastBuildDate>Tue, 17 Jun 2025 04:00:03 +0000</lastBuildDate>
+    <generator>Jekyll v4.0.1</generator>
+    
+      <item>
+        <title>使用私有仓库部署Jekyll</title>
+        <description>&lt;p&gt;参考链接
+https://blog.ackerven.com/archives/91/&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#创建-personal-access-token-classic&quot;&gt;管理个人访问令牌 - GitHub 文档 &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;主要步骤分为：初始化公开仓库、新建个人令牌、新建私有仓库存储博客源文件、设置私有仓库的Action。&lt;/p&gt;
+
+&lt;h2 id=&quot;一初始化公开仓库&quot;&gt;一、初始化公开仓库&lt;/h2&gt;
+
+&lt;p&gt;可以先建个README文件，确保已经初始化。&lt;/p&gt;
+
+&lt;h2 id=&quot;二新建个人令牌&quot;&gt;二、新建个人令牌&lt;/h2&gt;
+
+&lt;p&gt;新建个人令牌参考GitHub文档。&lt;/p&gt;
+
+&lt;p&gt;然后在私有仓库的&lt;code&gt;Setting-&amp;gt;Secrets and variables-&amp;gt;Actions&lt;/code&gt;里新建secret来存储刚刚的个人令牌&lt;/p&gt;
+
+&lt;h2 id=&quot;三创建action&quot;&gt;三、创建Action&lt;/h2&gt;
+
+&lt;p&gt;在私有仓库里新建&lt;code&gt;.github/workflows/deploy.yml&lt;/code&gt;文件&lt;/p&gt;
+
+&lt;p&gt;填入以下内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;name: Deploy Jekyll site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master #分支名称
+  workflow_dispatch:  
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false 
+          fetch-depth: 0
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: &apos;3.1&apos;
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Build Jekyll site
+        run: |
+          bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        run: |
+          cd _site
+          git init
+          git checkout -b gh-pages #分支名称
+          git add -A
+          git -c user.name=&quot;GitHub Actions&quot; -c user.email=&quot;actions@github.com&quot; commit -m &quot;Deploy via GitHub Actions&quot;
+          git remote add origin https://$@github.com/用户名/用户名.github.io.git
+          git push origin gh-pages -f -q
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2025/%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E9%83%A8%E7%BD%B2Jekyll/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2025/%E4%BD%BF%E7%94%A8%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E9%83%A8%E7%BD%B2Jekyll/</guid>
+        
+        <category>Jekyll</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>使用docker搭建l4d2服务器的一次记录</title>
+        <description>&lt;p&gt;参考链接
+&lt;a href=&quot;https://developer.valvesoftware.com/wiki/SteamCMD#Linux&quot;&gt;SteamCMD&lt;/a&gt;
+&lt;a href=&quot;https://www.raobee.com/archives/316/&quot;&gt;自建一个Linux下的求生之路2服务器 - 木皆之森&lt;/a&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/337315249&quot;&gt;搭建求生之路2服务器和插件分享 - 知乎&lt;/a&gt;
+&lt;a href=&quot;https://www.bilibili.com/opus/736922474423255104&quot;&gt;求生之路2服务器搭建（Linux-Debian）&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;1安装steamcmd&quot;&gt;1.安装steamcmd&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -p 27015:27015/udp -it --name=steamcmd docker.1ms.run/cm2network/steamcmd bash 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;2启动steamcmd&quot;&gt;2.启动steamcmd&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;./steamcmd.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;3创建安装目录&quot;&gt;3.创建安装目录&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;force_install_dir ./l4d2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;4匿名用户登录&quot;&gt;&lt;del&gt;4.匿名用户登录&lt;/del&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;login Anonymous
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;4实际上steamcmd匿名用户已经不能下载l4d2的服务器了要登录自己拥有的账户如果有二次验证需要在app上确认&quot;&gt;4.实际上steamcmd匿名用户已经不能下载l4d2的服务器了要登录自己拥有的账户，如果有二次验证需要在app上确认&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-steam&quot;&gt;login 用户名
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;5安装l4d2服务器&quot;&gt;5.安装l4d2服务器&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&quot;language-steam&quot;&gt;app_update 222860 validate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;6下载两个文件&quot;&gt;6.下载两个文件&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.sourcemod.net/post-download.php&quot;&gt;SourceMod: Half-Life 2 Scripting&lt;/a&gt;
+&lt;a href=&quot;https://www.sourcemm.net/downloads.php?branch=stable&quot;&gt;Metamod:Source - Snapshots&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;7上传到服务器后复制到docker容器里&quot;&gt;7.上传到服务器后复制到docker容器里&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker cp sourcemod-1.12.0-git7200-linux.tar.gz steamcmd:/home/steam/
+docker cp mmsource-1.12.0-git1219-linux.tar.gz steamcmd:/home/steam/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;8解压文件&quot;&gt;8.解压文件&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;tar -xvf mmsource-1.12.0-git1219-linux.tar.gz | tar -xvf sourcemod-1.12.0-git7200-linux.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;9需要把解压获得的文件放到此处对应的目录steamsteamappscommonleft-4-dead-2-dedicated-serverleft4dead2&quot;&gt;9.需要把解压获得的文件放到此处对应的目录&lt;code&gt;~/Steam/steamapps/common/Left 4 Dead 2 Dedicated Server/left4dead2&lt;/code&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;mv ./addons/* ~/steamcmd/l4d2/left4dead2/addons
+mv ./cfg/* ~/steamcmd/l4d2/left4dead2/cfg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;10去cfg文件夹下编辑servercfg&quot;&gt;10.去cfg文件夹下编辑server.cfg&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;nano server.cfg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;内容大概如下&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-cfg&quot;&gt;hostname &quot;my_room&quot;
+sv_tags hidden
+sv_tags &quot;hidden&quot;
+sm_cvar mp_gamemode &quot;coop&quot;
+sm_cvar director_no_human_zombies &quot;1&quot;
+l4d_maxplayers 12
+sv_maxplayers 12
+sv_visiblemaxplayers 12
+sv_removehumanlimit 1
+sv_force_unreserved 1
+// Difficulty Setting: easy, normal, hard, impossible
+z_difficulty &quot;hard&quot;
+sv_region 4 
+sv_steamgroup &quot;xxxx&quot;
+sv_steamgroup_exclusive 1
+sm_cvar sv_region &quot;4&quot;
+sm_cvar rescue_min_dead_time &quot;60&quot;
+sm_cvar sv_allow_lobby_connect_only &quot;0&quot;
+sm_cvar director_afk_timeout &quot;10&quot;
+sm_cvar sb_melee_approach_victim &quot;1&quot;
+sm_cvar sb_max_team_melee_weapons &quot;8&quot;
+sm_cvar sb_all_bot_game 1
+sm_cvar allow_all_bot_survivor_team 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其中的id可以从&lt;a href=&quot;https://steamdb.info/&quot;&gt;steamdb&lt;/a&gt;获取&lt;code&gt;&quot;STEAM_1:1:xxxxxxxxx&quot;&lt;/code&gt;应该是后面的数字
+服务器配置具体可以参考&lt;a href=&quot;https://github.com/tretray/L4D2-Server-Configuration/blob/master/server.cfg&quot;&gt;L4D2-Server-Configuration/server.cfg at master · tretray/L4D2-Server-Configuration&lt;/a&gt;或者开头2，3链接也有对应的配置
+粘贴后&lt;code&gt;Ctrl+S&lt;/code&gt;保存,&lt;code&gt;Ctrl+O&lt;/code&gt;写入，&lt;code&gt;Ctrl+X&lt;/code&gt;退出
+11.设置自己为管理员
+编辑&lt;code&gt;~/Steam/steamapps/common/Left\ 4 Dead\ 2\ Dedicated\ Server/left4dead2/addons/sourcemod/configs/admins_simple.ini&lt;/code&gt;
+加入&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;&quot;STEAM_1:1:xxxx&quot;  &quot;99:z&quot; //Steam管理员
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;11启动服务器&quot;&gt;11.启动服务器&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;./l4d2/srcds_run -game left4dead2 -condebug -insecure -nomaster +hostport 27015 +ip 0.0.0.0 +exec server.cfg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以放到一个.sh文件里，记得&lt;code&gt;chmod +x&lt;/code&gt;赋予权限&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;如果遇到问题，怎么也无法连接&lt;/p&gt;
+
+&lt;p&gt;先看看有没有你设定的端口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker inspect steamcmd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;12使用screen保持运行&quot;&gt;12.使用screen保持运行&lt;/h1&gt;
+
+&lt;p&gt;首先启动docker，然后启用root模式进入docker&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker exec -it --user root steamcmd bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后更换源（我的是debian12）&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mirrors.tuna.tsinghua.edu.cn/help/debian/&quot;&gt;debian镜像站使用帮助&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;所以可以&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;nano /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后更换源，接着更新&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;apt update
+apt install screen
+exit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装完成后退出，重新以非root进入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker exec -it  steamcmd bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建screen&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;screen -S l4d2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后在此启动即可&lt;/p&gt;
+
+&lt;h1 id=&quot;13-安装地图和插件&quot;&gt;13 安装地图和插件&lt;/h1&gt;
+
+&lt;p&gt;地图：https://www.gamemaps.com/l4d2&lt;/p&gt;
+
+&lt;p&gt;插件：&lt;a href=&quot;https://www.sourcemod.net/plugins.php?cat=0&amp;amp;mod=6&amp;amp;title=L4D2&amp;amp;author=&amp;amp;description=&amp;amp;search=1&quot;&gt;SourceMod&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;以下来自&lt;a href=&quot;https://www.bilibili.com/opus/736922474423255104&quot;&gt;求生之路2服务器搭建（Linux-Debian） - 哔哩哔哩&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;【.smx】 插件的核心部分，安装位置为：\left4dead\addons\sourcemod\plugins
+【.cfg】 配置文件，安装位置为：\left4dead\cfg\sourcemod
+【.sp】  源码，可以不用安装，安装位置为：\left4dead\addons\sourcemod\scripting
+【.txt】 安装位置为：\left4dead\addons\sourcemod\gamedata
+【.vpk】 地图，安装位置为：left4dead2\addons\
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Sun, 04 May 2025 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2025/%E4%BD%BF%E7%94%A8docker%E6%90%AD%E5%BB%BAl4d2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2025/%E4%BD%BF%E7%94%A8docker%E6%90%AD%E5%BB%BAl4d2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/</guid>
+        
+        <category>Game</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>启用thinkspace主题的代码块行号</title>
+        <description>&lt;p&gt;1.首先在&lt;code&gt;_config.yml&lt;/code&gt;中关闭rouge渲染&lt;/p&gt;
+&lt;details&gt;
+  &lt;summary&gt;_config.yml修改&lt;/summary&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-yml&quot;&gt;highlighter: none  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/details&gt;
+
+&lt;p&gt;2.然后禁用&lt;code&gt;_layouts/default.html&lt;/code&gt;中的&lt;code&gt;layout: compress&lt;/code&gt;，这个似乎存在bug&lt;/p&gt;
+&lt;details&gt;
+  &lt;summary&gt;_layouts/default.html&lt;/summary&gt;
+
+  &lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt; ---
+&amp;lt;!-- layout: compress --&amp;gt;
+published: true
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/details&gt;
+
+&lt;p&gt;3.去&lt;a href=&quot;https://prismjs.com/download.html&quot;&gt;prismjs官网&lt;/a&gt;选择主题、渲染语言和插件下载js和css，可以放到&lt;code&gt;assets&lt;/code&gt;文件夹目录下，并在&lt;code&gt;_include/head.html&lt;/code&gt;里添加引用&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;script src=&quot;/assets/js/prism.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/prism.css&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;行号是依赖于&lt;code&gt;line-numbers&lt;/code&gt;类，所以需要在&lt;code&gt;_include/footer.html&lt;/code&gt;添加js来依次给代码块添加该类，js来自参考链接&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;script&amp;gt;
+var pres = document.getElementsByTagName(&quot;pre&quot;);
+for(var i = 0; i &amp;lt; pres.length; i++){
+    var pre = pres[i];
+    if(pre.childNodes[0].nodeName == &quot;CODE&quot;){
+        pre.setAttribute(&quot;class&quot;,&quot;line-numbers&quot;);
+    }
+}
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.如果此时无法显示行号，需要修改&lt;code&gt;assets/css/prism.css&lt;/code&gt;，来增加行号的样式&lt;/p&gt;
+&lt;details&gt;
+  &lt;summary&gt;assets/css/prism.css&lt;/summary&gt;
+
+  &lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;pre[class*=language-].line-numbers.line-numbers {
+  padding-left: 3.8em !important; /* 恢复左侧留白 */
+}
+
+pre[class*=language-].line-numbers.line-numbers code {
+  padding-left: 0 !important; /* 移除代码区域的留白 */
+}
+
+pre[class*=language-].line-numbers.line-numbers .line-numbers-rows {
+  left: -3.8em !important; /* 行号列向左偏移到留白区域 */
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/details&gt;
+
+&lt;p&gt;大功告成！&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;参考链接&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://hugueliu.github.io/2019/12/28/add_line_number_for_code_block_in_jekyll/&quot;&gt;为 jekyll 中的代码块添加行号 - LIUMH的博客&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2025/%E5%90%AF%E7%94%A8thinkspace%E4%B8%BB%E9%A2%98%E7%9A%84%E4%BB%A3%E7%A0%81%E5%9D%97%E8%A1%8C%E5%8F%B7/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2025/%E5%90%AF%E7%94%A8thinkspace%E4%B8%BB%E9%A2%98%E7%9A%84%E4%BB%A3%E7%A0%81%E5%9D%97%E8%A1%8C%E5%8F%B7/</guid>
+        
+        <category>Jekyll</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Hello World</title>
+        <description>&lt;pre&gt;&lt;code&gt;#     _               _ __     _              ____    ___   
+#    | |__    ___    | &apos;_ \   (_)     ___    |__  |  ( _ )  
+#    | / /   / _ \   | .__/   | |    (_-&amp;lt;      / /   / _ \  
+#    |_\_\   \___/   |_|__   _|_|_   /__/_   _/_/_   \___/  
+#  _|&quot;&quot;&quot;&quot;&quot;|_|&quot;&quot;&quot;&quot;&quot;|_|&quot;&quot;&quot;&quot;&quot;|_|&quot;&quot;&quot;&quot;&quot;|_|&quot;&quot;&quot;&quot;&quot;|_|&quot;&quot;&quot;&quot;&quot;|_|&quot;&quot;&quot;&quot;&quot;| 
+#  &quot;`-0-0-&apos;&quot;`-0-0-&apos;&quot;`-0-0-&apos;&quot;`-0-0-&apos;&quot;`-0-0-&apos;&quot;`-0-0-&apos;&quot;`-0-0-&apos; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;next-plan&quot;&gt;Next Plan&lt;/h2&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Add Friendship Link&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Add Line Numbers&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Add Floating Catalogue&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Add Dark Dark Themes&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Add Comments via GitHub Login&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2025/Hello-World-!/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2025/Hello-World-!/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to Download or Use This Theme</title>
+        <description>&lt;h3 id=&quot;use-this-theme-as-you-main-site&quot;&gt;Use this theme as you main site&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Download or fork the master branch of this theme repo into your GitHub account.&lt;/li&gt;
+  &lt;li&gt;Rename the repo into something like &lt;code&gt;your_username.github.io&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Edit &lt;code&gt;_config.yml&lt;/code&gt; file to your preferences.&lt;/li&gt;
+  &lt;li&gt;Edit &lt;code&gt;about.md&lt;/code&gt; file for your About page.&lt;/li&gt;
+  &lt;li&gt;Inside &lt;code&gt;_posts&lt;/code&gt; folder, there are sample of blog entries. Learn from it and start yours.&lt;/li&gt;
+  &lt;li&gt;Now, visit &lt;code&gt;http://your_username.github.io&lt;/code&gt; and you should see your blog running.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;use-this-theme-as-a-project-page&quot;&gt;Use this theme as a project page&lt;/h3&gt;
+
+&lt;p&gt;If you want to use this theme as a project page blog, you don’t need to rename the theme repo into &lt;code&gt;your_username.github.io&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;All you need to do, open &lt;code&gt;_config.yml&lt;/code&gt; file, change &lt;code&gt;baseurl&lt;/code&gt; to your project name which contains this theme, e.g. &lt;code&gt;baseurl: &quot;/myproject&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;cheers&quot;&gt;Cheers!&lt;/h4&gt;
+</description>
+        <pubDate>Fri, 10 Jun 2016 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2016/how-to-download-or-use-this-theme/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2016/how-to-download-or-use-this-theme/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>If you have a Guest post..</title>
+        <description>&lt;p&gt;If you think that you’re going to have a guest post… take a look on this post sample. Just add &lt;code&gt;author: GuestName&lt;/code&gt; to the YAML front matter. Then, the &lt;strong&gt;GuestName&lt;/strong&gt; will be appear on the next of post date. Oh, the guest name will be automatically uppercase.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2016/if-you-have-a-guest-post/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2016/if-you-have-a-guest-post/</guid>
+        
+        <category>Test</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Markdown Cheatsheet Demo</title>
+        <description>&lt;h2 id=&quot;typography-elements-in-one&quot;&gt;Typography Elements in One&lt;/h2&gt;
+
+&lt;p&gt;Let’s start with a informative paragraph. &lt;strong&gt;This text is bolded.&lt;/strong&gt; But not this one! &lt;em&gt;How about italic text?&lt;/em&gt; Cool right? Ok, let’s &lt;strong&gt;&lt;em&gt;combine&lt;/em&gt;&lt;/strong&gt; them together. Yeah, that’s right! I have code to highlight, so &lt;code&gt;ThisIsMyCode()&lt;/code&gt;. What a nice! Good people will hyperlink away, so &lt;a href=&quot;#&quot;&gt;here we go&lt;/a&gt; or &lt;a href=&quot;http://www.example.com&quot;&gt;http://www.example.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;headings-h1-to-h6&quot;&gt;Headings H1 to H6&lt;/h2&gt;
+
+&lt;h1 id=&quot;h1-heading&quot;&gt;H1 Heading&lt;/h1&gt;
+
+&lt;h2 id=&quot;h2-heading&quot;&gt;H2 Heading&lt;/h2&gt;
+
+&lt;h3 id=&quot;h3-heading&quot;&gt;H3 Heading&lt;/h3&gt;
+
+&lt;h4 id=&quot;h4-heading&quot;&gt;H4 Heading&lt;/h4&gt;
+
+&lt;h5 id=&quot;h5-heading&quot;&gt;H5 Heading&lt;/h5&gt;
+
+&lt;h6 id=&quot;h6-heading&quot;&gt;H6 Heading&lt;/h6&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;footnote&quot;&gt;Footnote&lt;/h2&gt;
+
+&lt;p&gt;Let’s say you have text that you want to refer with a footnote, you can do that too! This is an example for the footnote number one [&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;]. You can even add more footnotes, with link! [&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;]&lt;/p&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;blockquote&quot;&gt;Blockquote&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Start by doing what’s necessary; then do what’s possible; and suddenly you are doing the impossible. –Francis of Assisi&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; This theme does NOT support nested blockquotes.&lt;/p&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;list-items&quot;&gt;List Items&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First order list item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Unordered list can use asterisks&lt;/li&gt;
+  &lt;li&gt;Or minuses&lt;/li&gt;
+  &lt;li&gt;Or pluses&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;code-blocks&quot;&gt;Code Blocks&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;var modularpattern = (function() {
+    // your module code goes here
+    var sum = 0 ;
+
+    return {
+        add:function() {
+            sum = sum + 1;
+            return sum;
+        },
+        reset:function() {
+            return sum = 0;    
+        }  
+    }   
+}());
+alert(modularpattern.add());    // alerts: 1
+alert(modularpattern.add());    // alerts: 2
+alert(modularpattern.reset());  // alerts: 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;s = &quot;Python syntax highlighting&quot;
+print s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;No language indicated, so no syntax highlighting.
+But let&apos;s throw in a &amp;lt;b&amp;gt;tag&amp;lt;/b&amp;gt;.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;$$ E = mc^2 $$&lt;/p&gt;
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;hidden-block&quot;&gt;Hidden Block&lt;/h2&gt;
+
+&lt;details&gt;
+  &lt;summary&gt;Click me&lt;/summary&gt;
+
+  &lt;p&gt;the answer is &lt;code&gt;42&lt;/code&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;abc&lt;/strong&gt;&lt;br /&gt;
+$$ a^2 + b^2= c^2 $$&lt;/p&gt;
+
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot;&gt;int main()
+{
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/details&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;table&quot;&gt;Table&lt;/h2&gt;
+
+&lt;h3 id=&quot;table-1-with-alignment&quot;&gt;Table 1: With Alignment&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Tables&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Are&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;Cool&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;col 3 is&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;right-aligned&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;$1600&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;col 2 is&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;centered&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;$12&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zebra stripes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;are neat&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;$1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;table-2-with-typography-elements&quot;&gt;Table 2: With Typography Elements&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Markdown&lt;/th&gt;
+      &lt;th&gt;Less&lt;/th&gt;
+      &lt;th&gt;Pretty&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;*Still*&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;renders&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;**nicely**&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;horizontal-line&quot;&gt;Horizontal Line&lt;/h2&gt;
+
+&lt;p&gt;The HTML &lt;code&gt;&amp;lt;hr&amp;gt;&lt;/code&gt; element is for creating a “thematic break” between paragraph-level elements. In markdown, you can create a &lt;code&gt;&amp;lt;hr&amp;gt;&lt;/code&gt; with any of the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;___&lt;/code&gt;: three consecutive underscores&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;---&lt;/code&gt;: three consecutive dashes&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;***&lt;/code&gt;: three consecutive asterisks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;renders to:&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;hr /&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;divider&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;media&quot;&gt;Media&lt;/h2&gt;
+
+&lt;h3 id=&quot;video-embedded-iframe&quot;&gt;Video Embedded Iframe&lt;/h3&gt;
+
+&lt;div class=&quot;video-container&quot;&gt;
+  &lt;iframe src=&quot;https://player.bilibili.com/player.html?isOutside=true&amp;amp;bvid=BV1x5411o7Kn&amp;amp;cid=505002580&amp;amp;as_wide=1&amp;amp;high_quality=1&amp;amp;danmaku=0&quot; allowfullscreen=&quot;allowfullscreen&quot; scrolling=&quot;no&quot; frameborder=&quot;0&quot; sandbox=&quot;allow-top-navigation allow-same-origin allow-forms allow-scripts&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;image&quot;&gt;Image&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://avatars.githubusercontent.com/u/151628144?s=400&amp;amp;u=be73ac31f53e7f813c725a129026b17ed7074543&amp;amp;v=4&quot; alt=&quot;Minion&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Footnote:&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;1: Footnote number one yeah baby! &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;2: A footnote you can link to - &lt;a href=&quot;#&quot;&gt;click here!&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 30 Dec 2015 00:00:00 +0000</pubDate>
+        <link>https://kopis78.github.io/2015/markdown-cheatsheet-demo/</link>
+        <guid isPermaLink="true">https://kopis78.github.io/2015/markdown-cheatsheet-demo/</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

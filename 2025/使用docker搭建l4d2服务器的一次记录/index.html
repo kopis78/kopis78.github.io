@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="/assets/js/prism.js"></script>
+  <link rel="stylesheet" href="/assets/css/prism.css">
+  <link rel="shortcut icon" type="image/png" href="https://avatars.githubusercontent.com/u/151628144?v=4">
+
+  
+  
+  
+  
+
+  <title>
+      使用docker搭建l4d2服务器的一次记录 | kopis78's blog
+  </title>
+
+  
+  
+
+  
+
+  <meta name="description" content="
+      使用docker搭建l4d2服务器的一次记录
+  ">
+  <meta name="keywords" content="computer">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+
+  
+  
+  
+
+  <!-- Social: Facebook / Open Graph -->
+
+  <meta property="og:type" content="article">
+  <meta property="article:author" content="kopis78">
+  <meta property="article:section" content="">
+  <meta property="article:tag" content="">
+  <meta property="article:published_time" content="2025-05-04 00:00:00 +0000">
+
+  <meta property="og:url" content="https://kopis78.github.io/2025/%E4%BD%BF%E7%94%A8docker%E6%90%AD%E5%BB%BAl4d2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/">
+  <meta property="og:title" content="
+      使用docker搭建l4d2服务器的一次记录 | kopis78's blog
+  ">
+  <meta property="og:image" content="https://kopis78.github.iohttps://avatars.githubusercontent.com/u/151628144?v=4">
+  <meta property="og:description" content="
+      使用docker搭建l4d2服务器的一次记录
+  ">
+  <meta property="og:site_name" content="kopis78">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Social: Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="
+      使用docker搭建l4d2服务器的一次记录 | kopis78's blog
+  ">
+  <meta name="twitter:description" content="
+      使用docker搭建l4d2服务器的一次记录
+  ">
+  <meta name="twitter:image:src" content="https://kopis78.github.iohttps://avatars.githubusercontent.com/u/151628144?v=4">
+
+  <!-- Social: Google+ / Schema.org  -->
+  <meta itemprop="name" content="
+      使用docker搭建l4d2服务器的一次记录 | kopis78's blog
+  ">
+  <meta itemprop="description" content="
+      使用docker搭建l4d2服务器的一次记录
+  ">
+  <meta itemprop="image" content="https://kopis78.github.iohttps://avatars.githubusercontent.com/u/151628144?v=4">
+
+  <!-- Canonical link tag -->
+  <link rel="canonical" href="https://kopis78.github.io/2025/%E4%BD%BF%E7%94%A8docker%E6%90%AD%E5%BB%BAl4d2%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/">
+  <link rel="alternate" type="application/rss+xml" title="kopis78's blog" href="https://kopis78.github.io/feed.xml">
+
+  <!-- rel prev and next -->
+  
+  
+
+  <link rel="stylesheet" href="https://kopis78.github.io/assets/css/main.css">
+</head>
+
+  <body>
+    <main class="wrapper">
+      <header class="site-header">
+  
+<nav class="nav">
+  <div class="container">
+    <h1 class="logo"><a href="https://kopis78.github.io/">kopis78's<span> blog</span></a></h1>
+    <ul class="navbar">
+      <li><a href="https://kopis78.github.io/friends">Friends</a></li>
+      <li><a href="https://kopis78.github.io/tags">Tags</a></li>
+      <li><a href="https://kopis78.github.io/about">About me</a></li>
+      <li><a href="https://kopis78.github.io/feed.xml" target="_blank">RSS</a></li>
+    </ul>
+  </div>
+</nav>
+
+</header>
+
+      <article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <p class="post-meta"><time datetime="2025-05-04T00:00:00+00:00" itemprop="datePublished">May 4, 2025</time><number>  2646字</number></p>
+    <h1 class="post-title" itemprop="name headline">使用docker搭建l4d2服务器的一次记录</h1>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <p>参考链接
+<a href="https://developer.valvesoftware.com/wiki/SteamCMD#Linux">SteamCMD</a>
+<a href="https://www.raobee.com/archives/316/">自建一个Linux下的求生之路2服务器 - 木皆之森</a>
+<a href="https://zhuanlan.zhihu.com/p/337315249">搭建求生之路2服务器和插件分享 - 知乎</a>
+<a href="https://www.bilibili.com/opus/736922474423255104">求生之路2服务器搭建（Linux-Debian）</a></p>
+
+<h1 id="1安装steamcmd">1.安装steamcmd</h1>
+<pre><code class="language-bash">docker run -p 27015:27015/udp -it --name=steamcmd docker.1ms.run/cm2network/steamcmd bash 
+</code></pre>
+
+<h1 id="2启动steamcmd">2.启动steamcmd</h1>
+<pre><code class="language-bash">./steamcmd.sh
+</code></pre>
+<h1 id="3创建安装目录">3.创建安装目录</h1>
+<pre><code class="language-bash">force_install_dir ./l4d2
+</code></pre>
+<h1 id="4匿名用户登录"><del>4.匿名用户登录</del></h1>
+
+<pre><code class="language-bash">login Anonymous
+</code></pre>
+
+<h1 id="4实际上steamcmd匿名用户已经不能下载l4d2的服务器了要登录自己拥有的账户如果有二次验证需要在app上确认">4.实际上steamcmd匿名用户已经不能下载l4d2的服务器了要登录自己拥有的账户，如果有二次验证需要在app上确认</h1>
+
+<pre><code class="language-steam">login 用户名
+</code></pre>
+
+<h1 id="5安装l4d2服务器">5.安装l4d2服务器</h1>
+<pre><code class="language-steam">app_update 222860 validate
+</code></pre>
+
+<h1 id="6下载两个文件">6.下载两个文件</h1>
+<p><a href="https://www.sourcemod.net/post-download.php">SourceMod: Half-Life 2 Scripting</a>
+<a href="https://www.sourcemm.net/downloads.php?branch=stable">Metamod:Source - Snapshots</a></p>
+
+<h1 id="7上传到服务器后复制到docker容器里">7.上传到服务器后复制到docker容器里</h1>
+<pre><code class="language-bash">docker cp sourcemod-1.12.0-git7200-linux.tar.gz steamcmd:/home/steam/
+docker cp mmsource-1.12.0-git1219-linux.tar.gz steamcmd:/home/steam/
+</code></pre>
+
+<h1 id="8解压文件">8.解压文件</h1>
+
+<pre><code class="language-bash">tar -xvf mmsource-1.12.0-git1219-linux.tar.gz | tar -xvf sourcemod-1.12.0-git7200-linux.tar.gz
+</code></pre>
+
+<h1 id="9需要把解压获得的文件放到此处对应的目录steamsteamappscommonleft-4-dead-2-dedicated-serverleft4dead2">9.需要把解压获得的文件放到此处对应的目录<code>~/Steam/steamapps/common/Left 4 Dead 2 Dedicated Server/left4dead2</code>
+</h1>
+
+<pre><code class="language-bash">mv ./addons/* ~/steamcmd/l4d2/left4dead2/addons
+mv ./cfg/* ~/steamcmd/l4d2/left4dead2/cfg
+</code></pre>
+
+<h1 id="10去cfg文件夹下编辑servercfg">10.去cfg文件夹下编辑server.cfg</h1>
+
+<pre><code class="language-bash">nano server.cfg
+</code></pre>
+<p>内容大概如下</p>
+<pre><code class="language-cfg">hostname "my_room"
+sv_tags hidden
+sv_tags "hidden"
+sm_cvar mp_gamemode "coop"
+sm_cvar director_no_human_zombies "1"
+l4d_maxplayers 12
+sv_maxplayers 12
+sv_visiblemaxplayers 12
+sv_removehumanlimit 1
+sv_force_unreserved 1
+// Difficulty Setting: easy, normal, hard, impossible
+z_difficulty "hard"
+sv_region 4 
+sv_steamgroup "xxxx"
+sv_steamgroup_exclusive 1
+sm_cvar sv_region "4"
+sm_cvar rescue_min_dead_time "60"
+sm_cvar sv_allow_lobby_connect_only "0"
+sm_cvar director_afk_timeout "10"
+sm_cvar sb_melee_approach_victim "1"
+sm_cvar sb_max_team_melee_weapons "8"
+sm_cvar sb_all_bot_game 1
+sm_cvar allow_all_bot_survivor_team 0
+</code></pre>
+<p>其中的id可以从<a href="https://steamdb.info/">steamdb</a>获取<code>"STEAM_1:1:xxxxxxxxx"</code>应该是后面的数字
+服务器配置具体可以参考<a href="https://github.com/tretray/L4D2-Server-Configuration/blob/master/server.cfg">L4D2-Server-Configuration/server.cfg at master · tretray/L4D2-Server-Configuration</a>或者开头2，3链接也有对应的配置
+粘贴后<code>Ctrl+S</code>保存,<code>Ctrl+O</code>写入，<code>Ctrl+X</code>退出
+11.设置自己为管理员
+编辑<code>~/Steam/steamapps/common/Left\ 4 Dead\ 2\ Dedicated\ Server/left4dead2/addons/sourcemod/configs/admins_simple.ini</code>
+加入</p>
+<pre><code class="language-text">"STEAM_1:1:xxxx"  "99:z" //Steam管理员
+</code></pre>
+
+<h1 id="11启动服务器">11.启动服务器</h1>
+<pre><code>./l4d2/srcds_run -game left4dead2 -condebug -insecure -nomaster +hostport 27015 +ip 0.0.0.0 +exec server.cfg
+</code></pre>
+<p>可以放到一个.sh文件里，记得<code>chmod +x</code>赋予权限</p>
+
+<hr>
+
+<p>如果遇到问题，怎么也无法连接</p>
+
+<p>先看看有没有你设定的端口</p>
+
+<pre><code class="language-bash">docker inspect steamcmd
+</code></pre>
+
+<h1 id="12使用screen保持运行">12.使用screen保持运行</h1>
+
+<p>首先启动docker，然后启用root模式进入docker</p>
+
+<pre><code class="language-bash">docker exec -it --user root steamcmd bash
+</code></pre>
+
+<p>然后更换源（我的是debian12）</p>
+
+<p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/debian/">debian镜像站使用帮助</a></p>
+
+<p>所以可以</p>
+
+<pre><code class="language-bash">nano /etc/apt/sources.list
+</code></pre>
+
+<p>然后更换源，接着更新</p>
+
+<pre><code class="language-bash">apt update
+apt install screen
+exit
+</code></pre>
+
+<p>安装完成后退出，重新以非root进入</p>
+
+<pre><code class="language-bash">docker exec -it  steamcmd bash
+</code></pre>
+
+<p>创建screen</p>
+
+<pre><code class="language-bash">screen -S l4d2
+</code></pre>
+
+<p>然后在此启动即可</p>
+
+<h1 id="13-安装地图和插件">13 安装地图和插件</h1>
+
+<p>地图：https://www.gamemaps.com/l4d2</p>
+
+<p>插件：<a href="https://www.sourcemod.net/plugins.php?cat=0&mod=6&title=L4D2&author=&description=&search=1">SourceMod</a></p>
+
+<p>以下来自<a href="https://www.bilibili.com/opus/736922474423255104">求生之路2服务器搭建（Linux-Debian） - 哔哩哔哩</a></p>
+
+<pre><code class="language-text">【.smx】 插件的核心部分，安装位置为：\left4dead\addons\sourcemod\plugins
+【.cfg】 配置文件，安装位置为：\left4dead\cfg\sourcemod
+【.sp】  源码，可以不用安装，安装位置为：\left4dead\addons\sourcemod\scripting
+【.txt】 安装位置为：\left4dead\addons\sourcemod\gamedata
+【.vpk】 地图，安装位置为：left4dead2\addons\
+</code></pre>
+
+    
+  </div>
+</article>
+
+
+
+
+      <footer class="site-footer">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script>
+  var pres = document.getElementsByTagName("pre");
+  for(var i = 0; i < pres.length; i++){
+      var pre = pres[i];
+      if(pre.childNodes[0].nodeName == "CODE"){
+          pre.setAttribute("class","line-numbers");
+      }
+  }
+  </script>
+    
+  <div class="container">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <small class="block">© 2025 kopis78 · &lt;/&gt; Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/heiswayi/thinkspace">Thinkspace theme</a></small>
+  </div>
+</footer>
+
+    </main>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXX-XX']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="/assets/js/prism.js"></script>
+  <link rel="stylesheet" href="/assets/css/prism.css">
+  <link rel="shortcut icon" type="image/png" href="https://avatars.githubusercontent.com/u/151628144?v=4">
+
+  
+  
+  
+  
+
+  <title>
+      启用thinkspace主题的代码块行号 | kopis78's blog
+  </title>
+
+  
+  
+
+  
+
+  <meta name="description" content="
+      fix some bugs
+  ">
+  <meta name="keywords" content="computer">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+
+  
+  
+  
+
+  <!-- Social: Facebook / Open Graph -->
+
+  <meta property="og:type" content="article">
+  <meta property="article:author" content="kopis78">
+  <meta property="article:section" content="">
+  <meta property="article:tag" content="">
+  <meta property="article:published_time" content="2025-03-28 00:00:00 +0000">
+
+  <meta property="og:url" content="https://kopis78.github.io/2025/%E5%90%AF%E7%94%A8thinkspace%E4%B8%BB%E9%A2%98%E7%9A%84%E4%BB%A3%E7%A0%81%E5%9D%97%E8%A1%8C%E5%8F%B7/">
+  <meta property="og:title" content="
+      启用thinkspace主题的代码块行号 | kopis78's blog
+  ">
+  <meta property="og:image" content="https://kopis78.github.iohttps://avatars.githubusercontent.com/u/151628144?v=4">
+  <meta property="og:description" content="
+      fix some bugs
+  ">
+  <meta property="og:site_name" content="kopis78">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Social: Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="
+      启用thinkspace主题的代码块行号 | kopis78's blog
+  ">
+  <meta name="twitter:description" content="
+      fix some bugs
+  ">
+  <meta name="twitter:image:src" content="https://kopis78.github.iohttps://avatars.githubusercontent.com/u/151628144?v=4">
+
+  <!-- Social: Google+ / Schema.org  -->
+  <meta itemprop="name" content="
+      启用thinkspace主题的代码块行号 | kopis78's blog
+  ">
+  <meta itemprop="description" content="
+      fix some bugs
+  ">
+  <meta itemprop="image" content="https://kopis78.github.iohttps://avatars.githubusercontent.com/u/151628144?v=4">
+
+  <!-- Canonical link tag -->
+  <link rel="canonical" href="https://kopis78.github.io/2025/%E5%90%AF%E7%94%A8thinkspace%E4%B8%BB%E9%A2%98%E7%9A%84%E4%BB%A3%E7%A0%81%E5%9D%97%E8%A1%8C%E5%8F%B7/">
+  <link rel="alternate" type="application/rss+xml" title="kopis78's blog" href="https://kopis78.github.io/feed.xml">
+
+  <!-- rel prev and next -->
+  
+  
+
+  <link rel="stylesheet" href="https://kopis78.github.io/assets/css/main.css">
+</head>
+
+  <body>
+    <main class="wrapper">
+      <header class="site-header">
+  
+<nav class="nav">
+  <div class="container">
+    <h1 class="logo"><a href="https://kopis78.github.io/">kopis78's<span> blog</span></a></h1>
+    <ul class="navbar">
+      <li><a href="https://kopis78.github.io/friends">Friends</a></li>
+      <li><a href="https://kopis78.github.io/tags">Tags</a></li>
+      <li><a href="https://kopis78.github.io/about">About me</a></li>
+      <li><a href="https://kopis78.github.io/feed.xml" target="_blank">RSS</a></li>
+    </ul>
+  </div>
+</nav>
+
+</header>
+
+      <article class="post container" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <p class="post-meta"><time datetime="2025-03-28T00:00:00+00:00" itemprop="datePublished">Mar 28, 2025</time><number>  1109字</number></p>
+    <h1 class="post-title" itemprop="name headline">启用thinkspace主题的代码块行号</h1>
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <p>1.首先在<code>_config.yml</code>中关闭rouge渲染</p>
+<details>
+  <summary>_config.yml修改</summary>
+  <pre><code class="language-yml">highlighter: none  
+</code></pre>
+
+</details>
+
+<p>2.然后禁用<code>_layouts/default.html</code>中的<code>layout: compress</code>，这个似乎存在bug</p>
+<details>
+  <summary>_layouts/default.html</summary>
+
+  <pre><code class="language-html"> ---
+&lt;!-- layout: compress --&gt;
+published: true
+---
+</code></pre>
+
+</details>
+
+<p>3.去<a href="https://prismjs.com/download.html">prismjs官网</a>选择主题、渲染语言和插件下载js和css，可以放到<code>assets</code>文件夹目录下，并在<code>_include/head.html</code>里添加引用</p>
+<pre><code class="language-html">&lt;script src="/assets/js/prism.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="/assets/css/prism.css"&gt;
+</code></pre>
+<p>行号是依赖于<code>line-numbers</code>类，所以需要在<code>_include/footer.html</code>添加js来依次给代码块添加该类，js来自参考链接</p>
+<pre><code class="language-html">&lt;script&gt;
+var pres = document.getElementsByTagName("pre");
+for(var i = 0; i &lt; pres.length; i++){
+    var pre = pres[i];
+    if(pre.childNodes[0].nodeName == "CODE"){
+        pre.setAttribute("class","line-numbers");
+    }
+}
+&lt;/script&gt;
+</code></pre>
+
+<p>4.如果此时无法显示行号，需要修改<code>assets/css/prism.css</code>，来增加行号的样式</p>
+<details>
+  <summary>assets/css/prism.css</summary>
+
+  <pre><code class="language-css">pre[class*=language-].line-numbers.line-numbers {
+  padding-left: 3.8em !important; /* 恢复左侧留白 */
+}
+
+pre[class*=language-].line-numbers.line-numbers code {
+  padding-left: 0 !important; /* 移除代码区域的留白 */
+}
+
+pre[class*=language-].line-numbers.line-numbers .line-numbers-rows {
+  left: -3.8em !important; /* 行号列向左偏移到留白区域 */
+}
+
+</code></pre>
+
+</details>
+
+<p>大功告成！</p>
+
+<hr>
+
+<p>参考链接</p>
+
+<p><a href="https://hugueliu.github.io/2019/12/28/add_line_number_for_code_block_in_jekyll/">为 jekyll 中的代码块添加行号 - LIUMH的博客</a></p>
+
+    
+  </div>
+</article>
+
+
+
+
+      <footer class="site-footer">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script>
+  var pres = document.getElementsByTagName("pre");
+  for(var i = 0; i < pres.length; i++){
+      var pre = pres[i];
+      if(pre.childNodes[0].nodeName == "CODE"){
+          pre.setAttribute("class","line-numbers");
+      }
+  }
+  </script>
+    
+  <div class="container">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <small class="block">© 2025 kopis78 · &lt;/&gt; Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://github.com/heiswayi/thinkspace">Thinkspace theme</a></small>
+  </div>
+</footer>
+
+    </main>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXX-XX']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+  </body>
+</html>
